@@ -12,10 +12,33 @@ public class StudentManager {
   public static void main(String[] args) {
     StudentManager manager = new StudentManager();
 
+
+
     for (int i = 0; i < IDs.length; i++) {
       Student student = manager.find(IDs[i]);
       System.out.println("Student name " + student.getName());
     }
-
   }
+  public void find(int studentID) {
+    for (int i = 0;i < IDs.length;i++) {
+      if (studentID == IDs[i]) {
+        try {
+          System.out.println("student exitsts");
+        }
+        catch(CustomException e) {
+          throw new CustomException("Could not find student with ID "+studentID);
+        }
+      }
+    }
+  }
+}
+
+class CustomException extends IllegalArgumentException {
+    long ID;
+    CustomException(long _id) {
+      this.ID = _id;
+    }
+    public CustomException(String s) {
+      super(s);
+    }
 }

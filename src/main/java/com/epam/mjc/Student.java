@@ -32,7 +32,6 @@ public enum Student {
         .findFirst()
         .orElse(null);
   }
-
   public long getId() {
     return id;
   }
