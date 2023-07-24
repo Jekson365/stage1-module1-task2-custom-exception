@@ -4,40 +4,35 @@ package com.epam.mjc;
 public class StudentManager {
 
   private static final long[] IDs = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
-//
-//  public Student find(long studentID) {
-//    return Student.getValueOf(studentID);
-//  }
+
+  public Student find(long studentID) {
+
+    Student student = Student.getValueOf(studentID);
+    if (student == null) {
+      throw new CustomException("Could not find student with ID "+studentID);
+    }
+    return student;
+  }
 
   public static void main(String[] args) {
     StudentManager manager = new StudentManager();
 
-
-
     for (int i = 0; i < IDs.length; i++) {
-      Student student = manager.find(IDs[i]);
-//      System.out.println("Student name " + student.getName());
-    }
-  }
-  public Student find(long studentID) {
-    for (int i = 0;i < IDs.length;i++) {
-      if (studentID == IDs[i]) {
-        try {
-          System.out.println("student exitsts");
-        }
-        catch(CustomException e) {
-          throw new CustomException("Could not find student with ID "+studentID);
-        }
+      try {
+        Student student = manager.find(IDs[i]);
+        System.out.println("Student name " + student.getName());
+      }
+      catch (CustomException ex) {
+        System.err.println(ex.getMessage());
       }
     }
-    return null;
   }
 }
 
 class CustomException extends IllegalArgumentException {
-    long ID;
-    CustomException(long _id) {
-      this.ID = _id;
+    long _id;
+    public CustomException(long id) {
+      this._id = id;
     }
     public CustomException(String s) {
       super(s);
